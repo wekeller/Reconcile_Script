@@ -11,7 +11,7 @@ try:
     
     # Create a list of user names that will be used to find versions.
 	# find a better way to do this!
-    userList = ['wekeller', 'jhungerford', 'harrison', 'bair']
+    userList = ['wekeller', 'jhungerford', 'harrison', 'bair', 'norr']
     
     # Get a list of versions for the service named '???' and '###' to pass into the ReconcileVersions tool.
     versions = arcpy.da.ListVersions(workspace)
