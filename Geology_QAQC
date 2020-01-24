@@ -1,0 +1,24 @@
+######################################################################################################################
+#This script is to be used for the Geology Program to reconcile data to a departmental level, and to act as a template
+######################################################################################################################
+
+import arcpy
+# Set the workspace to the SDE connection file (check ArcGIS Catalog on the computer running this script. Add a connection file if needed)
+arcpy.env.workspace = 'Database Connections/Geology_QAQC.sde'
+# Set a variable for the workspace environment
+wEnv = arcpy.env.workspace
+# Set target version for reconcile. Format is the 'OWNEROFVERSION.Version_Name'
+targetVersion = 'GEOLOGYADMIN.Geology_QAQC'
+
+# Get a list of versions to pass into the ReconcileVersions tool.
+# Only reconcile versions that are children of Default
+print("Compiling a list of versions to reconcile")
+verList = arcpy.ListVersions(wEnv)
+#versionList = [ver.name for ver in verList if ver.parentVersionName == 'sde.Geology_QAQC (the workspace environment)']
+#Uncomment the print command in the next line if you wish to see the versions being reconciled
+#print verList
+
+# Execute the ReconcileVersions tool.
+print("Reconciling all versions")
+arcpy.ReconcileVersions_management(wEnv, "ALL_VERSIONS", targetVersion, verList, "LOCK_ACQUIRED", "NO_ABORT", "BY_OBJECT", "FAVOR_EDIT_VERSION", "POST", "KEEP_VERSION")
+print("Reconcile Complete")
